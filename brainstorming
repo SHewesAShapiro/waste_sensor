@@ -1,0 +1,10 @@
+getting people to empty waste flasks is a pain and causes lab drama
+With an automated system you decrease the need to have awkward conversations with your labmates and strain relationships
+You can't claim it's not your turn because the system knows who's next! You can't claim you forgot because the system keeps track
+
+a simple light sensor will give an alert when a flask is full
+It will sense a difference in air in your flask compared to clear liquid (or any non-air thing inside the beaker) - could be non-clear liquid
+It will do a check every minute to see the status of the flask
+
+It will then send you several email reminders until you do it
+If you don't, it will threaten to -- and ultimately will -- email your boss!
