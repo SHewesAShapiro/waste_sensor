@@ -1,0 +1,33 @@
+Title
+
+Abstract/summary
+
+1. Background and significance
+  why there is a need to design this
+  what we would want it to do
+  existing sensors
+  rationale for choosing this sensor type
+  
+2. Design and development
+  Design details with flow chart
+  tell the story of how it was developed
+  budget - how much it would cost and cost reductions
+  designed for a particular flask
+  needs to be removable
+  could be made of anything
+  black because optical properties 
+  wide because light protection
+
+3.  Quantificaiton and Qualification
+  it beeps when you fill it and does what it's supposed to
+  senses ambient light
+  
+4. Documentation and Deployment
+  instructions for use and special features
+  circuit diagram
+
+Haiku
+
+cell culture waste full
+who's going to empty it
+beep beep do it now
