@@ -39,9 +39,9 @@ void loop() {
 
   //double check 
   //if the light intensity is below a threshold, the laser has been deflected, then sound the alarm
-  if (value < 100) {
+  if (value < 400) {
     //wait 15 min and test again00
-    delay(1000); //15 min power saving mode
+    delay(90000); //15 min power saving mode
     
       //turn laser on and check light level
       digitalWrite(9, HIGH);
@@ -49,11 +49,11 @@ void loop() {
       delay(500);
       digitalWrite(9,LOW);
     
-    if (value < 700) {    
-            //beep an alert
-            for (int i=0; i <= 5; i++) { //change i to 50 in final
+    if (value < 400) {    
+            //beep an alert for one minute
+            for (int i=0; i <= 60; i++) {
             CircuitPlayground.playTone(500, 100);            
-            delay(200);
+            delay(50);
             }
             
             //enter while loop
@@ -68,15 +68,14 @@ void loop() {
                 //for 24 hours flash constantly and check for accelerometer inversion
                 while (escalation > 0) {
 
-                    //once time has passed increment the escalation level
-                    if (timecount == 15) {
+                    //once time has passed increment the escalation level at 24 and 48 hours
+                    if (timecount == 86400) {
                       escalation++;
                     }
-                    if (timecount == 30) {
+                    if (timecount == 172800) {
                       escalation++;
                     }
 
-                  
                     //turns on red LEDs
                     for (int x=0; x <= 9; x++) {
                        CircuitPlayground.setPixelColor(x, 255,   0,   0);
@@ -99,10 +98,10 @@ void loop() {
                     //listens for accelerometer change
                       X = CircuitPlayground.motionX();
                     //if accelerometer detects inversion, then reset everything
-                           Serial.print(X);
-
+                           Serial.println(X);
+                    //if the flask has been inverted
                     if (X > 1) {
-                      Serial.print("5 second check");
+                      Serial.println("5 second check");
                       count = 0;
                       for (int j=0; j<=10; j++){
                         X = CircuitPlayground.motionX();
@@ -112,6 +111,7 @@ void loop() {
                           }
                         delay(500);                        
                       }
+                     //if the flask has been inverted for 5 seconds then the flask has been emptied
                       if (count >= 10){
                         escalation = 0;
                         flaskfull = false;
@@ -119,28 +119,26 @@ void loop() {
                         //blue light
                          for (int x=0; x <= 9; x++) {
                        CircuitPlayground.setPixelColor(x, 0,   0,   255);
-                           
-                       }     
-                       //while x is positive (flask inverted) wait
+                        }     
+                       //while x is positive (flask not inverted) keep listening
                        while (X > 1){
                         delay(1000);
                         X = CircuitPlayground.motionX();
                        }
-                       //turns off LEDs
+                       //turns off LEDs as the sensor is reset
                       CircuitPlayground.clearPixels();            
                       }
                     }
-                    
-                    //if inversion (flask emptying) is not detected after 24 hours, then escalates to the next email level  
-                    
+                                        
                     delay(500); 
-                    //turns off LEDs
+                    //turns off LEDs (for flashing)
                     CircuitPlayground.clearPixels();
                     delay(1000); 
+                    //keeps track of the amount of time the device has been in an alarm state
                     timecount++;
                 }
             }                   
     }
   }
-  delay(1000); //15 min power saving mode
+  delay(90000); //15 min pause
 }
